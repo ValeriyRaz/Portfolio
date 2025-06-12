@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valeriy Razumov - Network Administrator</title>
+    <style>
+        :root {
+            --sidebar-bg: #252527; 
+            --sidebar-text-color: #f5f5f7;
+            --sidebar-link-hover-bg: rgba(0, 122, 255, 0.15);
+            --accent-color: #007aff; 
+            --accent-hover-color: #005ecb;
+            --content-bg: #f7f7f7; 
+            --text-color: #1d1d1f; 
+            --secondary-text-color: #515154;
+            --heading-color: #1d1d1f;
+            --border-color: #d2d2d7; 
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.7;
+            background-color: var(--content-bg);
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text-color);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            overflow-y: auto; 
+        }
+
+        .sidebar .profile {
+            width: 100%;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar .profile h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar .profile p {
+            font-size: 1em;
+            color: #a1a1a6;
+            font-weight: 400;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar nav ul li a {
+            color: var(--sidebar-text-color);
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: block;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .sidebar nav ul li a:hover,
+        .sidebar nav ul li a.active {
+            background-color: var(--sidebar-link-hover-bg);
+            color: var(--accent-color);
+        }
+        
+        .sidebar .social-links {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+        .sidebar .social-links p {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #a1a1a6;
+        }
+        .sidebar .social-links a {
+             color: var(--sidebar-text-color);
+             text-decoration: none;
+             font-size: 0.95em;
+             font-weight: 500;
+             display: block;
+             padding: 5px 0;
+             transition: color 0.2s ease;
+        }
+        .sidebar .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 50px 60px;
+            background-color: var(--content-bg);
+            min-height: 100vh;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+        }
+        section:not(:last-of-type) {
+             border-bottom: 1px solid var(--border-color);
+        }
+
+        h2 { 
+            font-size: 2.4em;
+            color: var(--heading-color);
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            margin-bottom: 1.3em;
+            font-size: 1.05em;
+            color: var(--secondary-text-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25em;
+            color: var(--heading-color);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .skill-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .skill-category ul li {
+            margin-bottom: 8px;
+            font-size: 1em;
+            color: var(--secondary-text-color);
+            position: relative;
+            padding-left: 22px;
+        }
+        .skill-category ul li::before {
+            content: '●'; 
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            font-size: 0.8em;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card h3 {
+            font-size: 1.7em;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        
+        .project-card .project-description { /* This class is now used in the detailed project section */
+             font-style: normal;
+             color: var(--secondary-text-color);
+             margin-bottom: 18px;
+             font-size: 1.1em;
+        }
+
+        .project-card .project-tasks { /* This class is now used in the detailed project section */
+            list-style: disc;
+            padding-left: 25px;
+            margin-bottom: 18px;
+            font-size: 1.05em; 
+        }
+        .project-card .project-tasks li {
+            margin-bottom: 10px;
+            color: var(--secondary-text-color);
+        }
+        .project-card strong { 
+            font-weight: 500;
+            color: var(--heading-color);
+        }
+
+        #contact h2 {
+            margin-bottom: 20px;
+        }
+        #contact p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        #contact a {
+            color: var(--accent-color);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        #contact a:hover {
+            color: var(--accent-hover-color);
+            text-decoration: none;
+        }
+
+        footer {
+            margin-left: 280px; 
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9em;
+            color: #888; 
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) { 
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+                padding: 40px;
+            }
+            .sidebar .profile h1 { font-size: 1.6em; }
+            .sidebar .profile p { font-size: 0.95em; }
+            .sidebar nav ul li a { font-size: 1em; }
+        }
+
+        @media (max-width: 768px) { 
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px 25px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                 overflow-y: visible; 
+            }
+             .sidebar .profile {
+                border-bottom: none; 
+                margin-bottom: 20px;
+            }
+            .sidebar nav ul {
+                display: flex;
+                flex-direction: row; 
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .sidebar nav ul li {
+                margin-bottom: 5px;
+            }
+             .sidebar nav ul li a {
+                padding: 8px 12px;
+            }
+            .sidebar .social-links {
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 30px 25px;
+            }
+            h2 { font-size: 2em; }
+            .skills-grid { grid-template-columns: 1fr; }
+            footer { margin-left: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="profile">
+            <h1>Valeriy Razumov</h1>
+            <p>Network Administrator</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="documents/Valeriy_Razumov_Resume.pdf" target="_blank">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="social-links">
+            <p>Connect with me:</p>
+            <a href="https://www.linkedin.com/in/valeriy-razumov/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+             <a href="[YOUR_GITHUB_URL]" target="_blank" rel="noopener noreferrer">GitHub</a> 
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                A dedicated and detail-oriented Network Administrator, recently graduated from John Abbott College's Network Administration program. I possess a strong passion for designing, implementing, and maintaining resilient IT infrastructures, with a keen interest in network security and server management. My academic journey and extensive hands-on lab work have equipped me with practical experience across diverse technologies, including Cisco networking, comprehensive Windows and Linux server environments, and virtualization platforms.
+            </p>
+            <p>
+                I am a proactive problem-solver, adept at troubleshooting complex issues and committed to continuous learning to stay abreast of the ever-evolving tech landscape. I am now eager to apply my skills and contribute effectively to a challenging internship role where I can further develop my expertise and support organizational success.
+            </p>
+            <p>
+                Languages: Fluent in English, French, and Russian.
+            </p>
+        </section>
+
+        <section id="skills">
+            <h2>Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Networking & Protocols</h3>
+                    <ul>
+                        <li>TCP/IP Suite, DNS (BIND, Microsoft DNS), DHCP</li>
+                        <li>VLANs & Trunking, Inter-VLAN Routing, Subnetting</li>
+                        <li>VPN Configuration, Firewall Management</li>
+                        <li>NAT, Routing (RIP, OSPF), STP, HSRP</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Operating Systems</h3>
+                     <ul>
+                        <li>Windows Server (2019, 2022, 2025)</li>
+                        <li>Linux (Fedora, Ubuntu, CentOS, AlmaLinux)</li>
+                        <li>Windows 10/11 Desktop Administration</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Server Administration</h3>
+                    <ul>
+                        <li>Active Directory (Users, Groups, OUs, GPOs)</li>
+                        <li>Web Servers (IIS, Apache), Email (Sendmail, Dovecot)</li>
+                        <li>File & Storage (NFS, Samba, VSFTPD)</li>
+                        <li>AD CS, WSUS, Print Services</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Virtualization & Tools</h3>
+                    <ul>
+                        <li>VMware Workstation, GNS3 Simulation</li>
+                        <li>PowerShell Scripting (AD, System Config)</li>
+                        <li>Basic Python (Network Automation)</li>
+                        <li>Wireshark, Cisco Packet Tracer, Webmin</li>
+                    </ul>
+                </div>
+                 <div class="skill-category">
+                    <h3>Security</h3>
+                    <ul>
+                        <li>SSHD Configuration & Hardening</li>
+                        <li>User Access Control & Permissions</li>
+                        <li>PKI Fundamentals & Certificate Management</li>
+                        <li>Network Security Principles & Best Practices</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Key Projects & Lab Experience</h2>
+            
+            <article class="project-card">
+                <h3>Comprehensive Active Directory Management</h3>
+                <p class="project-description">Led and executed extensive labs involving the design, deployment, and intricate management of Active Directory environments. This encompassed the promotion of domain controllers, configuration of child domains, and the establishment and verification of forest trusts. Systematically managed Organizational Units (OUs), user accounts, and security groups, applying best practices for access control.</p>
+                <ul class="project-tasks">
+                    <li>Implemented and managed Group Policies (GPOs) for security hardening, automated software deployment (e.g., Microsoft Teams), and consistent user environment configurations (including folder redirection and logon scripts).</li>
+                    <li>Administered AD Sites and Services to optimize replication traffic across simulated geographical locations.</li>
+                    <li>Executed FSMO role transfers and seizure scenarios to understand and manage critical domain operations during simulated failure events.</li>
+                </ul>
+                <p><strong>Key Technologies:</strong> Windows Server 2019/2022, Active Directory (AD DS, ADAC, ADUC), Group Policy Management (GPMC), DNS, DHCP, PowerShell, ADSI Edit.</p>
+            </article>
+
+            <article class="project-card">
+                <h3>Linux Server Ecosystem Deployment & Service Integration</h3>
+                <p class="project-description">Installed and configured various Linux distributions (AlmaLinux, Ubuntu, Fedora, CentOS) to function as robust network servers. This involved setting up secure remote access via SSH, implementing network file sharing solutions (NFS for Unix-like systems and Samba for Windows interoperability), and deploying FTP services (VSFTPD). Further configured BIND for authoritative DNS resolution and ISC DHCPD for dynamic IP address allocation within local networks.</p>
+                 <ul class="project-tasks">
+                    <li>Managed disk partitioning with Logical Volume Management (LVM) for flexible storage.</li>
+                    <li>Administered user/group permissions and applied firewall rules using iptables and firewalld to secure server resources.</li>
+                    <li>Monitored and managed services using systemd.</li>
+                </ul>
+                <p><strong>Key Technologies:</strong> AlmaLinux, Ubuntu Server, Fedora, CentOS, SSH, OpenSSH, NFS, Samba, VSFTPD, Apache, BIND9, ISC DHCPD, LVM, iptables, firewalld, systemd.</p>
+            </article>
+
+            <article class="project-card">
+                <h3>Advanced Apache Web Server Configuration & Security</h3>
+                <p class="project-description">Deployed and managed Apache HTTP servers on Linux platforms, focusing on versatility and security. Configured name-based and port-based virtual hosts to efficiently serve multiple distinct websites from a single server instance. Implemented robust access control and authentication mechanisms using `.htaccess` files and `.htpasswd` for user credential management. </p>
+                <ul class="project-tasks">
+                    <li>Enabled CGI scripting with Perl to introduce dynamic content generation capabilities.</li>
+                    <li>Secured web communications by obtaining and configuring SSL/TLS certificates (via OpenSSL and internal CAs) to enforce HTTPS.</li>
+                    <li>Integrated PHP and MySQL/MariaDB for building database-driven web applications.</li>
+                    <li>Tuned Apache server performance through the configuration of Multi-Processing Modules (MPM) like prefork and event.</li>
+                </ul>
+                <p><strong>Key Technologies:</strong> Apache HTTP Server, Linux (AlmaLinux), OpenSSL, SSL/TLS Certificates, CGI, Perl, PHP, MySQL/MariaDB, Virtual Hosting, mod_rewrite, .htaccess, MPMs.</p>
+            </article>
+
+            <article class="project-card">
+                <h3>Enterprise Certificate Authority (AD CS) Design & Implementation</h3>
+                <p class="project-description">Designed and deployed a secure two-tier Public Key Infrastructure (PKI) hierarchy using Active Directory Certificate Services. This involved setting up an offline standalone Root CA for maximum security and an online Enterprise Subordinate CA integrated with Active Directory for automated certificate management.</p>
+                <ul class="project-tasks">
+                    <li>Configured and published certificate templates for diverse use cases, including user authentication, web server SSL/TLS, and digital document signing.</li>
+                    <li>Managed the full certificate lifecycle: issuance, renewal, and revocation, including Certificate Revocation Lists (CRLs) and Online Certificate Status Protocol (OCSP) considerations.</li>
+                    <li>Enabled automatic certificate enrollment for domain-joined computers and users via Group Policy.</li>
+                    <li>Secured internal web servers (IIS) by binding SSL/TLS certificates issued by the internal Enterprise CA, enabling HTTPS for intranet sites.</li>
+                </ul>
+                <p><strong>Key Technologies:</strong> Windows Server, Active Directory Certificate Services (AD CS), PKI Design, SSL/TLS, Group Policy, IIS, MMC (Certificate Authority, Certificate Templates Snap-ins).</p>
+            </article>
+            
+            <article class="project-card">
+                <h3>Network Simulation, Advanced Routing & Redundancy (GNS3)</h3>
+                <p class="project-description">Utilized GNS3 to design, build, and troubleshoot complex enterprise network topologies. Focused on configuring Cisco routers and switches to implement advanced networking concepts. This included logical network segmentation with VLANs, 802.1Q trunking for inter-switch communication, and configuring routers for Inter-VLAN routing.</p>
+                <ul class="project-tasks">
+                    <li>Implemented and verified Spanning Tree Protocol (STP) to prevent Layer 2 loops.</li>
+                    <li>Configured dynamic routing protocols such as RIP and OSPF for efficient path selection and network scalability.</li>
+                    <li>Established gateway redundancy using Hot Standby Router Protocol (HSRP).</li>
+                    <li>Configured DHCP relay agents to support centralized DHCP services and implemented Network Address Translation (NAT/PAT) for internet connectivity.</li>
+                    <li>Applied Access Control Lists (ACLs) for network traffic filtering and security policy enforcement.</li>
+                </ul>
+                <p><strong>Key Technologies:</strong> GNS3, Cisco IOS (Routers & Switches), VLANs, 802.1Q Trunking, STP, RIP, OSPF, HSRP, DHCP Relay, NAT/PAT, ACLs.</p>
+            </article>
+            
+        </section>
+
+        <section id="contact">
+            <h2>Get In Touch</h2>
+            
+            <p><strong>Email:</strong> <a href="mailto:[YOUR-EMAIL]">VRcoudy@gmail.com</a></p>
+            <p><strong>Phone:</strong> <a href="tel:[YOUR-PHONE-NUMBER]">(438)396-4285</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/valeriy-razumov/" target="_blank" rel="noopener noreferrer">linkedin.com/in/valeriy-razumov</a></p>
+        </section>
+        
+    </main>
+    <footer>
+        <p>© [CURRENT YEAR] Valeriy Razumov. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
